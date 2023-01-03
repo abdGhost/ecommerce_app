@@ -1,5 +1,7 @@
+import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
-import 'package:shop_app/app_color.dart';
+import 'package:shop_app/util/app_color.dart';
+import 'package:shop_app/util/dimensions.dart';
 import 'package:shop_app/widget/big_text.dart';
 import 'package:shop_app/widget/icon_and_text_widget.dart';
 import 'package:shop_app/widget/small_text.dart';
@@ -14,7 +16,8 @@ class FoodScreenBody extends StatefulWidget {
 class _FoodScreenBodyState extends State<FoodScreenBody> {
   PageController pageController = PageController(viewportFraction: .85);
   var _currentPageValue = 0.0;
-  double _scaleFactor = 0.8;
+  final double _scaleFactor = 0.8;
+  final double _height = Dimensions.pageViewController;
 
   @override
   void initState() {
@@ -22,7 +25,6 @@ class _FoodScreenBodyState extends State<FoodScreenBody> {
     pageController.addListener(() {
       setState(() {
         _currentPageValue = pageController.page!;
-        print(_currentPageValue);
       });
     });
   }
@@ -35,16 +37,68 @@ class _FoodScreenBodyState extends State<FoodScreenBody> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.red,
-      height: 320,
-      child: PageView.builder(
-        controller: pageController,
-        itemCount: 5,
-        itemBuilder: (context, position) {
-          return _foodScreenItem(position);
-        },
-      ),
+    return Column(
+      children: [
+        //Food Section
+        Container(
+          height: Dimensions.paveView1,
+          child: PageView.builder(
+            controller: pageController,
+            itemCount: 5,
+            itemBuilder: (context, position) {
+              return _foodScreenItem(position);
+            },
+          ),
+        ),
+
+        // Dot Section
+        DotsIndicator(
+          dotsCount: 5,
+          position: _currentPageValue,
+          decorator: DotsDecorator(
+            size: const Size.square(9.0),
+            activeSize: const Size(18.0, 9.0),
+            activeShape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(Dimensions.radius5),
+            ),
+          ),
+        ),
+
+        //Popular Text
+        SizedBox(
+          height: Dimensions.height20,
+        ),
+        Container(
+          margin: EdgeInsets.only(left: Dimensions.width30),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              BigText(
+                text: 'Popular',
+              ),
+              SizedBox(
+                width: Dimensions.width10,
+              ),
+              Container(
+                margin: const EdgeInsets.only(bottom: 3),
+                child: BigText(
+                  text: ".",
+                  color: Colors.black26,
+                ),
+              ),
+              SizedBox(
+                width: Dimensions.width10,
+              ),
+              Container(
+                margin: const EdgeInsets.only(bottom: 2),
+                child: SmallText(
+                  text: 'Food Pairing',
+                ),
+              )
+            ],
+          ),
+        )
+      ],
     );
   }
 
@@ -53,103 +107,150 @@ class _FoodScreenBodyState extends State<FoodScreenBody> {
 
     if (index == _currentPageValue.floor()) {
       var currentScale = 1 - (_currentPageValue - index) * (1 - _scaleFactor);
+      var currentHeight = _height * (1 - currentScale) / 2;
+      matrix = Matrix4.diagonal3Values(1, currentScale, 1)
+        ..setTranslationRaw(0, currentHeight, 0);
+    } else if (index == _currentPageValue.floor() + 1) {
+      var currentScale =
+          _scaleFactor + (_currentPageValue - index + 1) * (1 - _scaleFactor);
+      var currentHeight = _height * (1 - currentScale) / 2;
+      matrix = Matrix4.diagonal3Values(1, currentScale, 1)
+        ..setTranslationRaw(0, currentHeight, 0);
+    } else if (index == _currentPageValue.floor() - 1) {
+      var currentScale = 1 - (_currentPageValue - index) * (1 - _scaleFactor);
+      var currentHeight = _height * (1 - currentScale) / 2;
+      matrix = Matrix4.diagonal3Values(1, currentScale, 1)
+        ..setTranslationRaw(0, currentHeight, 0);
+    } else {
+      var currentHeight = 0.8;
+      matrix = Matrix4.diagonal3Values(0, currentHeight, 1);
     }
-    return Stack(
-      children: [
-        Container(
-          height: 220,
-          margin: const EdgeInsets.only(left: 5, right: 5),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: index.isEven
-                ? const Color(0xFF69c5fd)
-                : const Color(0xFF9294cc),
-            image: const DecorationImage(
-              fit: BoxFit.cover,
-              image: AssetImage('assets/images/food3.jpg'),
+    return Transform(
+      transform: matrix,
+      child: Stack(
+        children: [
+          Container(
+            height: Dimensions.pageView,
+            margin: EdgeInsets.only(
+              left: Dimensions.width5,
+              right: Dimensions.width5,
             ),
-          ),
-        ),
-        Align(
-          alignment: Alignment.bottomCenter,
-          child: Container(
-            height: 120,
-            margin: const EdgeInsets.only(left: 30, right: 30, bottom: 15),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Colors.white,
-            ),
-            child: Container(
-              padding: const EdgeInsets.only(left: 20, right: 20, top: 15),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  BigText(
-                    text: 'Indian Food',
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    children: [
-                      Wrap(
-                        children: List.generate(
-                          5,
-                          (index) => const Icon(
-                            Icons.star,
-                            color: AppColors.mainColor,
-                            size: 16,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      SmallText(text: '4.5'),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      SmallText(text: '1000'),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      SmallText(text: 'comments'),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    children: [
-                      IconAndTextWidget(
-                        text: "Normal",
-                        icon: Icons.circle_sharp,
-                        iconColor: AppColors.iconColor01,
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      IconAndTextWidget(
-                        text: "1.7km",
-                        icon: Icons.location_on,
-                        iconColor: AppColors.mainColor,
-                      ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      IconAndTextWidget(
-                        text: "32min",
-                        icon: Icons.access_time_rounded,
-                        iconColor: AppColors.iconColor02,
-                      ),
-                    ],
-                  ),
-                ],
+              borderRadius: BorderRadius.circular(Dimensions.radius20),
+              color: index.isEven
+                  ? const Color(0xFF69c5fd)
+                  : const Color(0xFF9294cc),
+              image: const DecorationImage(
+                fit: BoxFit.cover,
+                image: AssetImage('assets/images/food3.jpg'),
               ),
             ),
           ),
-        ),
-      ],
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              height: Dimensions.pageViewTextController,
+              margin: EdgeInsets.only(
+                left: Dimensions.width30,
+                right: Dimensions.width30,
+                bottom: Dimensions.height15,
+              ),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(Dimensions.radius20),
+                color: Colors.white,
+                boxShadow: const [
+                  BoxShadow(
+                    color: Color(0xFFe8e8e8),
+                    blurRadius: 5.0,
+                    offset: Offset(0, 5),
+                  ),
+                  BoxShadow(
+                    color: Colors.white,
+                    offset: Offset(-5, 0),
+                  ),
+                  BoxShadow(
+                    color: Colors.white,
+                    offset: Offset(5, 0),
+                  ),
+                ],
+              ),
+              child: Container(
+                padding: EdgeInsets.only(
+                  left: Dimensions.width20,
+                  right: Dimensions.width20,
+                  top: Dimensions.height15,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    BigText(
+                      text: 'Indian Food',
+                    ),
+                    SizedBox(
+                      height: Dimensions.height10,
+                    ),
+                    Row(
+                      children: [
+                        Wrap(
+                          children: List.generate(
+                            5,
+                            (index) => Icon(
+                              Icons.star,
+                              color: AppColors.mainColor,
+                              size: Dimensions.font16,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: Dimensions.width20,
+                        ),
+                        SmallText(text: '4.5'),
+                        SizedBox(
+                          width: Dimensions.width10,
+                        ),
+                        SmallText(text: '1000'),
+                        SizedBox(
+                          width: Dimensions.width5,
+                        ),
+                        SmallText(text: 'comments'),
+                      ],
+                    ),
+                    SizedBox(
+                      height: Dimensions.height20,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        IconAndTextWidget(
+                          text: "Normal",
+                          icon: Icons.circle_sharp,
+                          iconColor: AppColors.iconColor01,
+                        ),
+                        SizedBox(
+                          width: Dimensions.width10,
+                        ),
+                        IconAndTextWidget(
+                          text: "1.7km",
+                          icon: Icons.location_on,
+                          iconColor: AppColors.mainColor,
+                        ),
+                        SizedBox(
+                          width: Dimensions.width10,
+                        ),
+                        IconAndTextWidget(
+                          text: "32min",
+                          icon: Icons.access_time_rounded,
+                          iconColor: AppColors.iconColor02,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

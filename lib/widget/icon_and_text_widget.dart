@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shop_app/util/dimensions.dart';
 import 'package:shop_app/widget/small_text.dart';
 
 class IconAndTextWidget extends StatelessWidget {
@@ -20,9 +21,10 @@ class IconAndTextWidget extends StatelessWidget {
         Icon(
           icon,
           color: iconColor,
+          size: Dimensions.iconSize24,
         ),
-        const SizedBox(
-          width: 5,
+        SizedBox(
+          width: Dimensions.width10,
         ),
         SmallText(
           text: text,

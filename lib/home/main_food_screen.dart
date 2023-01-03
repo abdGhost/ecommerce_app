@@ -73,7 +73,11 @@ class _MainFoodScreenState extends State<MainFoodScreen> {
               ),
             ),
           ),
-          const FoodScreenBody(),
+          const Expanded(
+            child: SingleChildScrollView(
+              child: FoodScreenBody(),
+            ),
+          ),
         ],
       ),
     );

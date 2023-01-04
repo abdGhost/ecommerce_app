@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:shop_app/home/food_screen_body.dart';
 import 'package:shop_app/util/app_color.dart';
 import 'package:shop_app/util/dimensions.dart';
 import 'package:shop_app/widget/big_text.dart';
 import 'package:shop_app/widget/small_text.dart';
+
+import 'food_screen_body.dart';
 
 class MainFoodScreen extends StatefulWidget {
   const MainFoodScreen({Key? key}) : super(key: key);

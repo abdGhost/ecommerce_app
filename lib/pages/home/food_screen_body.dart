@@ -100,109 +100,104 @@ class _FoodScreenBodyState extends State<FoodScreenBody> {
         ),
 
         //List of food and image
-        Container(
-          height: 900,
-          child: ListView.builder(
-            itemCount: 10,
-            physics: const NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
-            itemBuilder: (context, index) {
-              return Container(
-                margin: EdgeInsets.only(
-                  left: Dimensions.width20,
-                  right: Dimensions.width20,
-                  bottom: Dimensions.height10,
-                ),
-                child: Row(
-                  children: [
-                    //Image  Container
-                    Container(
-                      width: Dimensions.listviewImgSize,
-                      height: Dimensions.listviewImgSize,
+        ListView.builder(
+          itemCount: 10,
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          itemBuilder: (context, index) {
+            return Container(
+              margin: EdgeInsets.only(
+                left: Dimensions.width20,
+                right: Dimensions.width20,
+                bottom: Dimensions.height10,
+              ),
+              child: Row(
+                children: [
+                  //Image  Container
+                  Container(
+                    width: Dimensions.listviewImgSize,
+                    height: Dimensions.listviewImgSize,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(Dimensions.radius20),
+                      image: const DecorationImage(
+                        fit: BoxFit.cover,
+                        image: AssetImage('assets/images/food1.jpg'),
+                      ),
+                      color: Colors.white38,
+                    ),
+                  ),
+
+                  // Text Conatiner
+                  Expanded(
+                    child: Container(
+                      height: Dimensions.listviewTextContSize,
                       decoration: BoxDecoration(
-                        borderRadius:
-                            BorderRadius.circular(Dimensions.radius20),
-                        image: const DecorationImage(
-                          fit: BoxFit.cover,
-                          image: AssetImage('assets/images/food1.jpg'),
+                        color: Colors.white,
+                        borderRadius: BorderRadius.only(
+                          bottomRight: Radius.circular(Dimensions.radius20),
+                          topRight: Radius.circular(Dimensions.radius20),
                         ),
-                        color: Colors.white38,
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                          left: Dimensions.width20,
+                          right: Dimensions.width20,
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              height: Dimensions.height10,
+                            ),
+                            BigText(
+                              text: "Nutritious fruit meal found in India",
+                            ),
+                            SizedBox(
+                              height: Dimensions.height10,
+                            ),
+                            SmallText(
+                              text: "With Inidan characteristics",
+                            ),
+                            SizedBox(
+                              height: Dimensions.height10,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                IconAndTextWidget(
+                                  text: "Normal",
+                                  icon: Icons.circle_sharp,
+                                  iconColor: AppColors.iconColor01,
+                                ),
+                                SizedBox(
+                                  width: Dimensions.width5,
+                                ),
+                                IconAndTextWidget(
+                                  text: "1.7km",
+                                  icon: Icons.location_on,
+                                  iconColor: AppColors.mainColor,
+                                ),
+                                SizedBox(
+                                  width: Dimensions.width5,
+                                ),
+                                IconAndTextWidget(
+                                  text: "32min",
+                                  icon: Icons.access_time_rounded,
+                                  iconColor: AppColors.iconColor02,
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-
-                    // Text Conatiner
-                    Expanded(
-                      child: Container(
-                        height: Dimensions.listviewTextContSize,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.only(
-                            bottomRight: Radius.circular(Dimensions.radius20),
-                            topRight: Radius.circular(Dimensions.radius20),
-                          ),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsets.only(
-                            left: Dimensions.width20,
-                            right: Dimensions.width20,
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                height: Dimensions.height10,
-                              ),
-                              BigText(
-                                text: "Nutritious fruit meal found in India",
-                              ),
-                              SizedBox(
-                                height: Dimensions.height10,
-                              ),
-                              SmallText(
-                                text: "With Inidan characteristics",
-                              ),
-                              SizedBox(
-                                height: Dimensions.height10,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  IconAndTextWidget(
-                                    text: "Normal",
-                                    icon: Icons.circle_sharp,
-                                    iconColor: AppColors.iconColor01,
-                                  ),
-                                  SizedBox(
-                                    width: Dimensions.width5,
-                                  ),
-                                  IconAndTextWidget(
-                                    text: "1.7km",
-                                    icon: Icons.location_on,
-                                    iconColor: AppColors.mainColor,
-                                  ),
-                                  SizedBox(
-                                    width: Dimensions.width5,
-                                  ),
-                                  IconAndTextWidget(
-                                    text: "32min",
-                                    icon: Icons.access_time_rounded,
-                                    iconColor: AppColors.iconColor02,
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              );
-            },
-          ),
-        )
+                  )
+                ],
+              ),
+            );
+          },
+        ),
       ],
     );
   }

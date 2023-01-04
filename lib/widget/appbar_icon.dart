@@ -8,7 +8,8 @@ class AppbarIcon extends StatelessWidget {
   final Color iconColor;
   final double size;
 
-  AppbarIcon({
+  const AppbarIcon({
+    super.key,
     required this.icon,
     this.backgroundColor = const Color(0xFFfcf4e4),
     this.iconColor = const Color(0xFF756d54),

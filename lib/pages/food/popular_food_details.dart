@@ -5,6 +5,7 @@ import 'package:shop_app/widget/big_text.dart';
 
 import '../../widget/app_column.dart';
 import '../../widget/appbar_icon.dart';
+import '../../widget/expandable_text_widget.dart';
 
 class PopularFoodDetails extends StatelessWidget {
   const PopularFoodDetails({Key? key}) : super(key: key);
@@ -15,6 +16,7 @@ class PopularFoodDetails extends StatelessWidget {
       backgroundColor: Colors.white,
       body: Stack(
         children: [
+          //Food Image
           Positioned(
             left: 0,
             right: 0,
@@ -29,13 +31,15 @@ class PopularFoodDetails extends StatelessWidget {
               ),
             ),
           ),
+
+          //Food Icon Section
           Positioned(
             top: Dimensions.height45,
             left: Dimensions.width20,
             right: Dimensions.width20,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
+              children: const [
                 AppbarIcon(
                   icon: Icons.arrow_back,
                 ),
@@ -45,6 +49,8 @@ class PopularFoodDetails extends StatelessWidget {
               ],
             ),
           ),
+
+          //Food Introduction Section
           Positioned(
             left: 0,
             right: 0,
@@ -73,12 +79,23 @@ class PopularFoodDetails extends StatelessWidget {
                     height: Dimensions.height20,
                   ),
                   BigText(text: 'Introduce'),
+                  SizedBox(
+                    height: Dimensions.height10,
+                  ),
+                  const Expanded(
+                    child: SingleChildScrollView(
+                      child: ExpandedTextWidget(
+                          text:
+                              "Lorem when an unknown printer took a galley of type and scrambled it to make a type specimen book Lorem mwhen an unknown printer took a galley of type and scrambled it to make a type specimen book"),
+                    ),
+                  ),
                 ],
               ),
             ),
           ),
         ],
       ),
+      //Bottom Navigation Bar
       bottomNavigationBar: Container(
         height: Dimensions.bottomNavBarHeight,
         padding: EdgeInsets.only(

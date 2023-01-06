@@ -80,7 +80,7 @@ class PopularFoodDetails extends StatelessWidget {
                   ),
                   BigText(text: 'Introduce'),
                   SizedBox(
-                    height: Dimensions.height10,
+                    height: Dimensions.height20,
                   ),
                   const Expanded(
                     child: SingleChildScrollView(

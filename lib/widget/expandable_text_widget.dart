@@ -43,11 +43,15 @@ class _ExpandedTextWidgetState extends State<ExpandedTextWidget> {
     return Container(
       child: secondHalf.isEmpty
           ? SmallText(
+              color: AppColors.paraColor,
+              size: Dimensions.font16,
               text: firstHalf,
             )
           : Column(
               children: [
                 SmallText(
+                  color: AppColors.paraColor,
+                  size: Dimensions.font16,
                   text:
                       hiddenText ? ("$firstHalf...") : (firstHalf + secondHalf),
                 ),

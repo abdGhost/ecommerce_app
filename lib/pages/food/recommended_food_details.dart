@@ -12,6 +12,7 @@ class RecommenedFoodDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('Here');
     return Scaffold(
       backgroundColor: Colors.white,
       body: CustomScrollView(
@@ -114,7 +115,64 @@ class RecommenedFoodDetail extends StatelessWidget {
                 ),
               ],
             ),
-          )
+          ),
+          Container(
+            height: Dimensions.bottomNavBarHeight,
+            padding: EdgeInsets.only(
+              top: Dimensions.height30,
+              bottom: Dimensions.height30,
+              left: Dimensions.width20,
+              right: Dimensions.width20,
+            ),
+            decoration: BoxDecoration(
+              color: AppColors.buttonBackgroundColor,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(Dimensions.radius20 * 2),
+                topRight: Radius.circular(Dimensions.radius20 * 2),
+              ),
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  padding: EdgeInsets.only(
+                    top: Dimensions.height20,
+                    bottom: Dimensions.height20,
+                    left: Dimensions.width20,
+                    right: Dimensions.width20,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(
+                      Dimensions.radius20,
+                    ),
+                  ),
+                  child: Icon(
+                    Icons.favorite,
+                    color: AppColors.mainColor,
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.only(
+                    top: Dimensions.height20,
+                    bottom: Dimensions.height20,
+                    left: Dimensions.width20,
+                    right: Dimensions.width20,
+                  ),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(
+                      Dimensions.radius20,
+                    ),
+                    color: AppColors.mainColor,
+                  ),
+                  child: BigText(
+                    text: "\$10 | add to cart ",
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+          ),
         ],
       ),
     );
